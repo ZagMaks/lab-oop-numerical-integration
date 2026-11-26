@@ -10,8 +10,11 @@ from integrators import (
 
 
 def target_function(x):
-    """Підінтегральна функція згідно з індивідуальним варіантом."""
-    pass
+    if x<10**-8:
+        return -0.5
+    else:
+        f = (math.cos(x)-1)/x**2
+        return f
 
 
 def main():
