@@ -10,17 +10,14 @@ from integrators import (
 
 
 def target_function(x):
-    if x<10**-8:
-        return -0.5
-    else:
-        f = (math.cos(x)-1)/x**2
-        return f
+    f = math.cos(x)*math.exp(-x**2)
+    return f
 
 
 def main():
     func = target_function
     params = {"a": 0.0, "b":1.0}
-    eps = 0.0001
+    eps = 0.00006
     integrators = [RectangleIntegrator.from_dict(func, params), TrapezoidIntegrator.from_dict(func, params), SimpsonIntegrator.from_dict(func, params)]
     for integrator in integrators:
         print(f"\t{integrator}")
