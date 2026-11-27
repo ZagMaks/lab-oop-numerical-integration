@@ -31,16 +31,22 @@ class BaseIntegrator:
         I_h2 = self.integrate(2*n)
         delta = abs(I_h-I_h2)/koef
         print(f"n = {n} -> I = {I_h}")
+        counter = 1
         while delta>=eps:
             n*=2
             I_h = I_h2
             I_h2 = self.integrate(2*n)
             delta = abs(I_h2-I_h)/koef
             print(f"n = {n} -> I = {I_h}")
+            counter += 1
         print(f"n = {2*n} -> I = {I_h2}")
         value = I_h2 + (I_h2 - I_h)/koef
-        return value,2*n,delta
-
+        counter += 1
+        return value,2*n,delta,counter
+    
+    def amount_of_iterations(self, eps=1e-4, initial_n=2):
+        counter = self.adaptive_integrate(eps=1e-4,initial_n=2)[3]
+        return counter
     def __str__(self):
         return (f"{self.method_name} (порядок точності O(h^{self.order})) на відрізку [{self.a}; {self.b}]")
 
@@ -56,7 +62,7 @@ class RectangleIntegrator(BaseIntegrator):
 
     def integrate(self, n):
         h = (self.b - self.a) / n
-        total = sum(self.func(self.a + (i + 0.5) * h) for i in range(n))
+        total = sum(self.func(self.a + (i + 0.5) * h) for i in range (n))
         return total*h
 
 

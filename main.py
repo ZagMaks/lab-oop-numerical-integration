@@ -23,6 +23,9 @@ def main():
         print(f"\t{integrator}")
         res = integrator.adaptive_integrate(eps, initial_n=2)
         print(f"Уточнений результат: {res[0]} (n_min = {res[1]}, похибка = {res[2]})")
-
+        metod = integrators[0]
+        ep = eps
+        count = metod.amount_of_iterations(ep,initial_n=2)
+        print(f"Кількість потрібних ітерацій для методу({metod}): {count}")
 if __name__ == "__main__":
     main()
